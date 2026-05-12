@@ -92,19 +92,24 @@ ${code}
 \`\`\``;
 
     try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-20250514",
-          max_tokens: 1000,
-          messages: [{ role: "user", content: prompt }]
-        })
-      });
+      const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer GROQ_API_KEY_HERE`
+  },
+  body: JSON.stringify({
+    model: "llama-3.3-70b-versatile",
+    max_tokens: 1000,
+    messages: [{ role: "user", content: prompt }]
+  })
+});
       const data = await res.json();
-      const text = data.content?.[0]?.text || "";
-      const clean = text.replace(/```json|```/g, "").trim();
-      const parsed = JSON.parse(clean);
+      const text = data.choices?.[0]?.message?.content || "";
+      console.log("RAW RESPONSE:", text);
+const clean = text.replace(/```json|```/g, "").trim();
+console.log("CLEAN:", clean);
+const parsed = JSON.parse(clean);
       const entry = {
         id: Date.now(),
         timestamp: new Date().toLocaleString(),
