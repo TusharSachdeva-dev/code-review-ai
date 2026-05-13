@@ -92,36 +92,14 @@ ${code}
 \`\`\``;
 
     try {
-      const res = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+     const res = await fetch("https://code-review-backend-mpts.onrender.com/api/review", {
   method: "POST",
   headers: {
-    "Content-Type": "application/json",
-    "Authorization": `Bearer GROQ_API_KEY_HERE`
+    "Content-Type": "application/json"
   },
-  body: JSON.stringify({
-    model: "llama-3.3-70b-versatile",
-    max_tokens: 1000,
-    messages: [{ role: "user", content: prompt }]
-  })
+  body: JSON.stringify({ code, language })
 });
-      const data = await res.json();
-      const text = data.choices?.[0]?.message?.content || "";
-      console.log("RAW RESPONSE:", text);
-const clean = text.replace(/```json|```/g, "").trim();
-console.log("CLEAN:", clean);
-const parsed = JSON.parse(clean);
-      const entry = {
-        id: Date.now(),
-        timestamp: new Date().toLocaleString(),
-        filename: filename || "untitled." + language.slice(0, 2),
-        language,
-        score: parsed.score,
-        summary: parsed.summary,
-        bugs: parsed.bugs || [],
-        performance: parsed.performance || [],
-        metrics: parsed.metrics || {},
-        code
-      };
+      const parsed = data;
       setReview(entry);
       setHistory(prev => [entry, ...prev.slice(0, 9)]);
       setActiveReviewTab("bugs");
