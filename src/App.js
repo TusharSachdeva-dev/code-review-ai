@@ -99,9 +99,21 @@ ${code}
   },
   body: JSON.stringify({ code, language })
 });
-      const parsed = data;
-      setReview(entry);
-      setHistory(prev => [entry, ...prev.slice(0, 9)]);
+      const parsed = await res.json();
+const entry = {
+  id: Date.now(),
+  timestamp: new Date().toLocaleString(),
+  filename: filename || "untitled." + language.slice(0, 2),
+  language,
+  score: parsed.score,
+  summary: parsed.summary,
+  bugs: parsed.bugs || [],
+  performance: parsed.performance || [],
+  metrics: parsed.metrics || {},
+  code
+};
+setReview(entry);
+setHistory(prev => [entry, ...prev.slice(0, 9)]);
       setActiveReviewTab("bugs");
     } catch (err) {
       setReview({ error: "Failed to parse review. Please try again." });
