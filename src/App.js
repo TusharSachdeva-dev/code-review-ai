@@ -150,7 +150,7 @@ setHistory(prev => [entry, ...prev.slice(0, 9)]);
           </div>
           <span style={{ fontSize: 12, color: "#858585", marginLeft: 8 }}>CodeReview AI — {filename || "untitled"}</span>
         </div>
-        <span style={{ fontSize: 11, color: "#4ec9b0", letterSpacing: 1 }}>POWERED BY CLAUDE AI</span>
+        <span style={{ fontSize: 11, color: "#4ec9b0", letterSpacing: 1 }}>POWERED BY GROQ AI</span>
       </div>
 
       {/* Activity Bar */}
@@ -294,7 +294,7 @@ setHistory(prev => [entry, ...prev.slice(0, 9)]);
               </div>
               <div style={{ padding: "8px 12px", background: "#007acc", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <span style={{ fontSize: 11, color: "#fff" }}>
-                  {isReviewing ? "⏳ Analyzing with Claude AI..." : "Ready"}
+                  {isReviewing ? "⏳ Analyzing with GROQ AI..." : "Ready"}
                 </span>
                 <button
                   onClick={runReview}
@@ -403,7 +403,7 @@ setHistory(prev => [entry, ...prev.slice(0, 9)]);
         <span>{language}</span>
         <span style={{ marginLeft: "auto" }}>Ln {code.split("\n").length}, Col 1</span>
         <span>UTF-8</span>
-        <span style={{ color: "#4ec9b0" }}>Claude AI Ready</span>
+        <span style={{ color: "#4ec9b0" }}>Groq AI Ready</span>
       </div>
     </div>
   );
